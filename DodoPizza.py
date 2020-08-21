@@ -20,16 +20,16 @@ def get_content(html):
     titles = items.find_all('article', class_="sc-1x0pa1d-6 dpfxvk")
     parts = []
     count = len(titles)
-    for i in range(count):
-        parts.append(titles[i].text.replace(titles[i].h2.text, ''))
-        titles[i] = titles[i].h2.text.replace('\xa0',' ')
-    
-    global_data['Пицца'] = titles
-    global_data['Ингридиенты'] = parts
-
     price = items.find_all('div', class_="sc-1x0pa1d-5 dKJLGn")
     for i in range(count):
         price[i] = price[i].span.text
+    for i in range(count):
+
+        parts.append(titles[i].text.replace(titles[i].h2.text, '').replace('Выбрать', '').replace('от', '').replace(price[i], ''))
+        titles[i] = titles[i].h2.text
+    
+    global_data['Пицца'] = titles
+    global_data['Ингридиенты'] = parts
     global_data['Начальная цена'] = price
 
     global_data['Ингридиенты'][0] = 'На ваш вкус и цвет!'
