@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
-
+import openpyxl
 URL = 'https://dodopizza.ru/moscow#pizzas'
 HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.86 YaBrowser/20.8.0.903 Yowser/2.5 Yptp/1.23 Safari/537.36', 
     'accept': '*/*'}
@@ -43,4 +43,5 @@ def parse():
         print("Wrong format")
 
 p = parse()
-p.to_csv('Pizzas.xlsx')
+print(p)
+p.to_excel('Pizzas.xlsx')
