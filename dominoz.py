@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
-import openpyxl
-URL = 'https://dodopizza.ru/moscow#pizzas'
+
+URL = 'https://dominospizza.ru'
 HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.86 YaBrowser/20.8.0.903 Yowser/2.5 Yptp/1.23 Safari/537.36', 
     'accept': '*/*'}
 global_data = {}
@@ -16,23 +16,22 @@ def get_content(html):
     print(1)
     soup = BeautifulSoup(html, 'html.parser') #второй параметр - необязателен
     print(2)
-    items = soup.find('section', class_='sc-814yrq-2 bVRcWG', id='pizzas')
-    titles = items.find_all('article', class_="sc-1x0pa1d-6 dpfxvk")
-    parts = []
-    count = len(titles)
-    price = items.find_all('div', class_="sc-1x0pa1d-5 dKJLGn")
-    for i in range(count):
-        price[i] = price[i].span.text
-    for i in range(count):
+    items = soup.find_all('div', {'class': 'iULuXr'})
+    titles, parts, price = [], [], []
+    print(items)
 
-        parts.append(titles[i].text.replace(titles[i].h2.text, '').replace('Выбрать', '').replace('от', '').replace(price[i], ''))
-        titles[i] = titles[i].h2.text
+    for i in items:
+        title = i.find('h2', class_='sc-1fleilf-5 butGbl').get_text()
+        print(title)
+        print(123)
+
     
+
+
     global_data['Пицца'] = titles
     global_data['Описание'] = parts
     global_data['Начальная цена'] = price
 
-    global_data['Описание'][0] = 'На ваш вкус и цвет!'
 
     pizza_data = pd.DataFrame(global_data)
     return(pizza_data)
@@ -48,4 +47,3 @@ def parse():
 
 p = parse()
 print(p)
-p.to_excel('DodoPizzas.xlsx')
