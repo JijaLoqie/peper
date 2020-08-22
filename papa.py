@@ -13,11 +13,13 @@ def get_html(url, params=None):
 
 
 def get_content(html):
-    print(1)
+
     soup = BeautifulSoup(html, 'html.parser') #второй параметр - необязателен
-    print(2)
+
     items = soup.find('div', class_='_2ActO0fnm7_oDvg-SJT-JZ', id='pizza__list')
-    items_title = items.find_all('div', class_="aQQmaKmYxsncqMA3oNzKh _1K-NO2hvBJkvG95nIKjJsf ProductCard OCoeOMqCJdPjzC5s_sRgG")
+
+
+    items_title = items.find_all('div', class_="aQQmaKmYxsncqMA3oNzKh")
     titles = []
     for i in items_title:
         title = i.h3.text
@@ -34,10 +36,15 @@ def get_content(html):
     for i in items_prices:
         price = i.text
         prices.append(price)
-        print(price)
+       
+
+
+
+
     print(len(titles), len(descriptions), len(prices))
+
     global_data['Пицца'] = titles
-    global_data['Ингридиенты'] = descriptions
+    global_data['Описание'] = descriptions
     global_data['Начальная цена'] = prices
     return pd.DataFrame(global_data)
     
@@ -46,10 +53,12 @@ def get_content(html):
 def parse():
     html = get_html(URL)
     if html.status_code == 200:
-        get_content(html.text)
+        return get_content(html.text)
         
     else:
         print("Wrong format")
 
-print(parse())
+df = parse()
+print(df)
+df.to_excel('PizzasPapa.xlsx')
 

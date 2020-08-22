@@ -29,7 +29,7 @@ def get_content(html):
         titles[i] = titles[i].h2.text
     
     global_data['Пицца'] = titles
-    global_data['Ингридиенты'] = parts
+    global_data['Описание'] = parts
     global_data['Начальная цена'] = price
 
     global_data['Ингридиенты'][0] = 'На ваш вкус и цвет!'
