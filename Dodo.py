@@ -13,9 +13,9 @@ def get_html(url, params=None):
 
 
 def get_content(html):
-    print(1)
+
     soup = BeautifulSoup(html, 'html.parser') #второй параметр - необязателен
-    print(2)
+
     items = soup.find('section', class_='sc-814yrq-2 bVRcWG', id='pizzas')
     titles = items.find_all('article', class_="sc-1x0pa1d-6 dpfxvk")
     parts = []
@@ -46,6 +46,6 @@ def parse():
     else:
         print("Wrong format")
 
-p = parse()
-print(p)
-p.to_excel('DodoPizzas.xlsx')
+data = parse()
+print(data)
+data.to_excel('DodoPizzas.xlsx')

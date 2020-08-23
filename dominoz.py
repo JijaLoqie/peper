@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 from selenium import webdriver
+import io
 
 URL = 'https://dominospizza.ru'
 HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.86 YaBrowser/20.8.0.903 Yowser/2.5 Yptp/1.23 Safari/537.36', 
@@ -14,19 +15,23 @@ def get_html(url, params=None):
 
 
 def get_content(html):
-    print(1)
+
     soup = BeautifulSoup(html, 'html.parser') #второй параметр - необязателен
-    print(2)
+
     mane = soup.find_all('h2', class_='sc-1fleilf-5 hiuaAU')
 
     titles, parts, price = [], [], []
     for i in mane:
         titles.append(i.text)
-    mane = soup.find_all('div', class_='sc-1fleilf-16 kYcovD')
-    for i in mane:
-        price.append(i.text)
-        print(i.text)
-    print(mane,'-----------------------------')
+    allParts = soup.find_all('div', class_='sc-1fleilf-6 gPlOMO')
+
+    for i in allParts:
+        parts.append(i.text)
+
+    allPrices = soup.find_all('div', class_='sc-1fleilf-16 cUSDEG')
+    for i in allPrices:
+        price.append(i.text.replace('от ', '') + '₽')
+
     
     
 
@@ -34,9 +39,11 @@ def get_content(html):
     global_data['Пицца'] = titles
     global_data['Описание'] = parts
     global_data['Начальная цена'] = price
+    
+    df = pd.DataFrame(global_data)
 
 
-    return 1
+    return df
 
 
 def parse():
@@ -47,5 +54,6 @@ def parse():
     else:
         print("Wrong format")
 
-p = parse()
-print(p)
+data = parse()
+print(data)
+data.to_excel('DominozPizzas.xlsx')

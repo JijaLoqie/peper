@@ -39,10 +39,6 @@ def get_content(html):
        
 
 
-
-
-    print(len(titles), len(descriptions), len(prices))
-
     global_data['Пицца'] = titles
     global_data['Описание'] = descriptions
     global_data['Начальная цена'] = prices
@@ -58,7 +54,7 @@ def parse():
     else:
         print("Wrong format")
 
-df = parse()
-print(df)
-df.to_excel('PizzasPapa.xlsx')
+data = parse()
+print(data)
+data.to_excel('PapaPizzas.xlsx')
 
