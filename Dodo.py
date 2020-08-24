@@ -46,6 +46,11 @@ def parse():
     else:
         print("Wrong format")
 
-data = parse()
-print(data)
-data.to_excel('DodoPizzas.xlsx')
+def main():
+    data = parse()
+
+    data.to_excel('DodoPizzas.xlsx')
+
+if __name__ == '__main__':
+    main()
+print("First - done")

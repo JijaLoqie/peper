@@ -43,6 +43,7 @@ def get_content(html):
     global_data['Описание'] = descriptions
     global_data['Начальная цена'] = prices
     return pd.DataFrame(global_data)
+
     
 
 
@@ -54,7 +55,11 @@ def parse():
     else:
         print("Wrong format")
 
-data = parse()
-print(data)
-data.to_excel('PapaPizzas.xlsx')
+def main():
+    data = parse()
 
+    data.to_excel('PapaPizzas.xlsx')
+
+if __name__ == '__main__':
+    main()
+print('Second - done')
