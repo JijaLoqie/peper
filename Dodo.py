@@ -23,19 +23,22 @@ def get_content(html):
     price = items.find_all('div', class_="sc-1x0pa1d-5 dKJLGn")
     for i in range(count):
         price[i] = price[i].span.text
+    k = []
     for i in range(count):
 
         parts.append(titles[i].text.replace(titles[i].h2.text, '').replace('Выбрать', '').replace('от', '').replace(price[i], ''))
         titles[i] = titles[i].h2.text
+        k.append('ДоДо Пицца')
     
     global_data['Пицца'] = titles
     global_data['Описание'] = parts
     global_data['Начальная цена'] = price
+    global_data['Компания'] = k
 
     global_data['Описание'][0] = 'На ваш вкус и цвет!'
 
     pizza_data = pd.DataFrame(global_data)
-    return(pizza_data)
+    return(pizza_data.set_index("Пицца"))
 
 
 def parse():

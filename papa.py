@@ -15,9 +15,9 @@ def get_html(url, params=None):
 def get_content(html):
 
     soup = BeautifulSoup(html, 'html.parser') #второй параметр - необязателен
-
+    print(soup.prettify())
     items = soup.find('div', class_='_2ActO0fnm7_oDvg-SJT-JZ', id='pizza__list')
-
+    print('========================================')
 
     items_title = items.find_all('div', class_="aQQmaKmYxsncqMA3oNzKh")
     titles = []

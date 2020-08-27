@@ -27,10 +27,11 @@ def get_content(html):
 
     for i in allParts:
         parts.append(i.text)
-
+    k = []
     allPrices = soup.find_all('div', class_='sc-1fleilf-16 cUSDEG')
     for i in allPrices:
         price.append(i.text.replace('от ', '') + '₽')
+        k.append('Доминос')
 
     
     
@@ -39,9 +40,10 @@ def get_content(html):
     global_data['Пицца'] = titles
     global_data['Описание'] = parts
     global_data['Начальная цена'] = price
+    global_data['Компания'] = k
     
-    df = pd.DataFrame(global_data)
-
+    df = pd.DataFrame(global_data).set_index("Пицца")
+    print(df)
 
     return df
 
