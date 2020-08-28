@@ -52,8 +52,7 @@ def parse():
 def main():
     data = parse()
 
-    data.to_excel('DodoPizzas.xlsx')
+    data.to_excel('AllData/DodoPizzas.xlsx')
 
 if __name__ == '__main__':
     main()
-print("First - done")

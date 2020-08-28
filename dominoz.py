@@ -43,7 +43,6 @@ def get_content(html):
     global_data['Компания'] = k
     
     df = pd.DataFrame(global_data).set_index("Пицца")
-    print(df)
 
     return df
 
@@ -60,8 +59,7 @@ def parse():
 def main():
     data = parse()
 
-    data.to_excel('DominozPizzas.xlsx')
+    data.to_excel('AllData/DominozPizzas.xlsx')
 
 if __name__ == '__main__':
     main()
-print('Third - done!')

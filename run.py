@@ -2,17 +2,21 @@ import Dodo
 import dominoz
 import pandas as pd
 import glob
-
-print(1)
+import os
+print('Парсинг сайта Додо...')
 Dodo.main()
-print(2)
+print("Готово. Парсинг сайта Доминос...")
 dominoz.main()
-print('Done')
-someXlsx = glob.glob('*xlsx')
+print('Готово, открываем меню...')
+someXlsx = glob.glob('AllData/*xlsx')
 menus = []
 for i in someXlsx:
     menus.append(pd.read_excel(i, index_col = 0))
 
 newdf = pd.concat(menus)
 newdf = newdf.sort_values(by='Начальная цена')
-newdf.to_excel('FullMenu.xlsx')
+name = 'FullMenu.xlsx'
+if name in glob.glob(name):
+    os.remove(name)
+newdf.to_excel(name)
+os.startfile(name)
